@@ -705,3 +705,100 @@ plt.show()
 
 
 #https://www.dataquest.io/mission/100/cleaning-data/
+
+#https://github.com/vasansaha/Development/tree/master
+
+#data Cleansing project.
+
+
+import pandas
+artworks=pandas.read_csv("MOMA_Artworks.csv")
+artworks.head(10)
+
+
+artworks.['date'].value_counts()
+
+
+
+def clean_split_rows(rows):
+	initial_date=rows['date']
+	final_date=initial_date
+	split_date=initial_date.split('-')
+	if len(split_date)>1:
+	final_date=split_date[0]
+	return final_date
+	
+	artworks['Date'] = artworks.apply(lambda row: clean_split_dates(row), axis=1)
+	
+	artworks['Date'].value_counts()
+	
+	
+def clean_c_dates(row):
+	initial_date=row['Date']
+	final_date=initial_date.lstrip("c.")
+	return final_date
+	artworks['Date']=artworks.apply(lambda row: clean_c_dates(row), axis=1)
+
+#The lstrip(chars) function starts from the left side of the String and compares each letter of the String with the chars we passed in. If it finds the full chars phrase, it will remove it from the String. If it doesn't, it keeps it the same!	
+	
+
+
+def clean_nd_dates(row):
+	initial_date=row['Date']
+	final_date=initial_date	
+	if initial_date = = "n.d":
+	final_date="Unknown"
+
+artworks['Date'] = artworks.apply(lambda row: clean_nd_dates(row),axis=1)
+artworks['Date'].value_counts()	
+
+
+
+
+
+
+ # Packaging in one core logically
+ def clean_dates(row):
+	initial_date=row['date']
+	final_date=initial_date
+	#pattern 1
+	split_date=initial_date.split("-")
+	if len(split_date)>1:
+		final_date=split_date[0]
+		return final_date
+		elif initial_date = = "n.d":
+		final_date="Unknown"
+		return final_date
+		else:
+		final_date=initial_date.lstrip("c.")
+		return final_date
+		
+artworks['Date'] = artworks.apply(lambda row: clean_dates(row),axis=1)
+
+artworks['Date'].value_counts()
+
+
+#.value_counts() functions gives the occurance of the data in columns.
+
+
+
+# removing parenthesis
+
+def clean_parenthesis(row):
+	initial_bio=row['Artist Bio']
+	final_bio=initial_bio
+	remove_parenthesis=initial_bio.lstrip("(")
+	final_bio=remove_parenthesis.rstrip(")")
+	return final_bio
+	
+	artworks['Artsbio']= artworks.apply(lambda row: clean_parenthesis(row),axis=1)
+	
+
+#https://www.dataquest.io/mission/5/modules-and-classes/
+
+	
+	
+	
+	
+	
+	
